@@ -6,6 +6,10 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
+app.get("/", (req, res) => {
+  res.send("BFHL API is running!");
+});
+
 app.post("/bfhl", (req, res) => {
   try {
     const { data } = req.body;
@@ -16,12 +20,12 @@ app.post("/bfhl", (req, res) => {
       });
     }
 
-    const fullName = "shubham_pandey";
-    const dob = "06112004";      
+    const fullName = "shubham_pandey"; 
+    const dob = "06112004"; 
     const email = "shubham.pandey2022@vitstudent.ac.in";
     const rollNumber = "22BCE1934";
 
-    const numbers = data.filter(item => !isNaN(item) && item !== " ");
+    const numbers = data.filter(item => !isNaN(item));
     const alphabets = data.filter(item => /^[A-Za-z]+$/.test(item));
     const specialChars = data.filter(item => !/^[A-Za-z0-9]+$/.test(item));
 
@@ -53,10 +57,6 @@ app.post("/bfhl", (req, res) => {
   } catch (error) {
     res.status(500).json({ is_success: false, message: "Server Error" });
   }
-});
-
-app.get("/", (req, res) => {
-  res.send("BFHL API Running!");
 });
 
 const PORT = process.env.PORT || 3000;
